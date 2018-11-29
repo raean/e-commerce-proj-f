@@ -1,0 +1,52 @@
+<html>
+ <body>
+  <h2 style="color:blue">{{title}}</h2>
+  <a routerLink="/dashboard">back to dashboard</a><br/>
+  <p>Enter a range to search</p>
+  <form (ngSubmit)= "onSubmit()" #myForm="ngForm">
+   <input [(ngModel)]="prefix" name="prefix" placeholder="Name Prefix" type="text">
+   <br/>
+   <input [(ngModel)]="minGPA" name="minGPA" placeholder="Minimum GPA" type="text">
+   <br/>
+   <select [(ngModel)]="sortBy" name="sortBy">
+	<option value="NONE">Select One</option>
+	<option value="SURNAME">Last Name</option>
+	<option value="MAJOR">Major</option>
+	<option value="COURSES">Courses</option>
+	<option value="GPA">GPA</option>
+   </select>
+   <br/>
+   <button id="find" type="submit">Find</button> 
+   <div [hidden]="!submitted">
+	<div *ngIf="showStat; then yes else no"></div>
+	<ng-template #yes="">
+		<span style="color:red">{{result}}</span>
+	</ng-template>
+	<ng-template #no="">
+	   	<table >
+		<thead >
+		  <tr>
+		    <th>Name</th>
+		    <th>Major</th>
+		    <th>Courses</th>
+		    <th>GPA</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr *ngFor="let student of result">
+		    <td>{{student.first_name}}, {{student.last_name}} </td>
+		    <td>{{student.major}}</td>
+		    <td>{{student.courses}}</td>
+		    <td>{{student.gpa}}</td>
+		  </tr>
+		</tbody>
+	      </table>
+	</ng-template>
+   </div>
+   <div>
+	<p [hidden]="!showStat" style="color:red;"> Error: {{error}}</p>
+   </div>
+  </form>  
+ </body>
+</html>
+

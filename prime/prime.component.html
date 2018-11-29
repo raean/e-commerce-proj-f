@@ -1,0 +1,21 @@
+<html>
+ <body>
+  <h2 style="color:blue">{{title}}</h2>
+  <a routerLink="/dashboard">back to dashboard</a><br/>
+  <p>Enter a range to find the primes in that range</p>
+  <form (ngSubmit)= "onSubmit(whatButton)" #myForm="ngForm">
+   <input [(ngModel)]="min" name="min" placeholder="Larger than this" type="text">
+   <br/>
+   <input [(ngModel)]="max" name="max" placeholder="But not larger than this" type="text">
+<br/>
+   <button id="find" (click)="onSubmit('Find')">Find</button> &nbsp;
+   <button id="next" (click)="onSubmit('Next')" [hidden]="showNext" >Next</button>
+   <div [hidden]="!submitted">
+   <p [hidden]="showStat" style="color:blue;"> Result: {{result}}</p>
+   <p [hidden]="!showStat" style="color:red;"> Error: {{error}}</p>
+   </div>
+   
+  </form>  
+ </body>
+</html>
+
